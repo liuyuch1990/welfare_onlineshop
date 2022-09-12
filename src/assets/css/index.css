@@ -1,0 +1,53 @@
+/*
+ * @Description: 首页css样式
+ * @Author: hai-27
+ * @Date: 2020-02-07 16:23:00
+ * @LastEditors: hai-27
+ * @LastEditTime: 2020-02-27 00:46:58
+ */
+
+
+/* 轮播图CSS */
+
+.block {
+    margin: 0 auto;
+    max-width: 800px;
+    min-height: 150px;
+}
+
+.el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+    background-color: #d3dce6;
+}
+
+.el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+    padding-left: 20px;
+}
+
+
+/* 轮播图CSS END */
+
+.broadcast .title {
+    text-align: center;
+    width: 50%;
+    font-size: 22px;
+    font-weight: 200;
+    line-height: 25px;
+    color: #ff6700;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: white;
+}
+
+.box-bd {
+    min-height: 100px;
+    background-color: white;
+}
+
+
+/* .phone {
+    background-color: #f5f5f5;
+} */

@@ -1,0 +1,92 @@
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.ml6 {
+    margin-left: 6%;
+}
+
+.ml2 {
+    margin-left: 2%;
+}
+
+.mr1 {
+    margin-left: 1%;
+}
+
+.mt15px {
+    margin-top: 15px;
+}
+
+
+/* 溢出隐藏 */
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* 超过一行。。。显示 */
+
+.multi-ellipsis--l1 {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1
+}
+
+
+/* 超过二行。。。显示 */
+
+.multi-ellipsis--l2 {
+    -webkit-line-clamp: 2
+}
+
+.multi-ellipsis--l2,
+.multi-ellipsis--l3 {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+
+/* 超过三行。。。显示 */
+
+.multi-ellipsis--l3 {
+    -webkit-line-clamp: 3
+}
