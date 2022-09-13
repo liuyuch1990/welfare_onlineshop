@@ -13,6 +13,7 @@ module.exports = {
         open: false,
         // host: '192.168.1.104',
         host: 'localhost',
+        port: 8001,
         proxy: {
             '/wsp-boot': {
                 target: process.env.VUE_APP_LINK, // 线上后端地址

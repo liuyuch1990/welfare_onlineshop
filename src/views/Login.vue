@@ -67,7 +67,7 @@
                   <el-option
                           v-for="item in deptList"
                           :key="item.id"
-                          :label="item.id"
+                          :label="item.departmentName"
                           :value="item.departmentName">
                   </el-option>
                 </el-select>
