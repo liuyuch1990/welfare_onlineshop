@@ -3,7 +3,7 @@
  * @Author: hai-27
  * @Date: 2020-02-07 16:23:00
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-03-01 11:15:22
+ * @LastEditTime: 2022-03-31 15:45:21
  -->
 <template>
   <div id="index" class="index">
@@ -28,7 +28,7 @@
               </el-carousel>
             </div>
             <div class="title">
-              北方华创2022年三八女神节发货时间截止至2022年3月15日。库存有限，请您尽快兑换！
+              {{ titleTips }}
             </div>
           </div>
           <!-- 轮播图END -->
@@ -42,56 +42,39 @@
                     @tab-click="handleClick"
                     style="margin: 0 auto"
                   >
-                    <el-tab-pane label="全部" name="全部">
-                      <div id="myList" class="myList">
-                        <ul>
-                          <li v-for="item in list" :key="item.id">
-                            <router-link
-                            target="_blank"
-                              :to="{
-                                path: '/goods/details',
-                                query: { id: item.goodsId,typeName: item.typeName},
-                              }"
-                            >
-                              <img :src="$target + item.coverPath" alt />
-                              <h2>{{ item.goodsName }}</h2>
-                              <h3>商品种类：{{ item.typeName }}</h3>
-                              <p>
-                                <span>库存：{{ item.goodsSum }}</span>
-                              </p>
-                            </router-link>
-                          </li>
-                        </ul>
-                      </div>
-                    </el-tab-pane>
                     <el-tab-pane
-                      v-for="(tabItem, index) in catList"
-                      :label="tabItem.value"
-                      :name="tabItem.key"
+                      v-for="(tabItem, index) in tabList"
+                      :label="tabItem.dictName"
+                      :name="tabItem.dictCode"
                       :key="index"
                     >
                       <div id="myList" class="myList">
-                        <ul>
-                          <li
-                            v-for="item in list"
-                            v-show="item.goodsType == tabItem.key"
-                            :key="item.id"
-                          >
-                            <router-link
-                              :to="{
-                                path: '/goods/details',
-                                query: { id: item.goodsId,typeName: item.typeName },
-                              }"
+                        <el-row :gutter="10">
+                          <el-col  class="myList_col" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                            <li
+                              class="goods-card"
+                              v-for="item in list"
+                              :key="item.id"
                             >
-                              <img :src="$target + item.coverPath" alt />
-                              <h2>{{ item.goodsName }}</h2>
-                              <h3>商品种类：{{ tabItem.value }}</h3>
-                              <p>
-                                <span>库存：{{ item.goodsSum }}</span>
-                              </p>
-                            </router-link>
-                          </li>
-                        </ul>
+                              <router-link
+                                :to="{
+                                  path: '/goods/details',
+                                  query: {
+                                    id: item.goodsId,
+                                    typeName: item.typeName,
+                                  },
+                                }"
+                              >
+                                <img :src="$target + item.coverPath" alt />
+                                <h2>{{ item.goodsName }}</h2>
+                                <h3>商品种类：{{ item.typeName }}</h3>
+                                <p>
+                                  <span>库存：{{ item.goodsSum }}</span>
+                                </p>
+                              </router-link>
+                            </li>
+                          </el-col>
+                        </el-row>
                       </div>
                     </el-tab-pane>
                   </el-tabs>
@@ -108,96 +91,64 @@
 </template>
 
 <script>
-import { GoodsTypeVariable } from "@/utils/Variable";
 export default {
   data() {
     return {
       list: [], //全部商品的列表
-      activeName: "全部", //刚开始显示分类一
-      activeIndex: "", // 头部导航栏选中的标签
-      search: "", // 搜索条件
-      images: [
-        {
-          imgPath: require("@/assets/imgs/01.jpg"),
-          id: "1",
-        },
-        {
-          imgPath: require("@/assets/imgs/02.jpg"),
-          id: "2",
-        }
-      ],
+      activeName: "all", //刚开始显示分类一
+      images: [],
+      titleTips: "",
       //商品的分类
-      catList: [],
+      tabList: [],
+      queryParams: {
+        pageNum: 1,
+        pageSize: 1000,
+      },
     };
   },
   created() {
     // 获取各类商品数据
     this.getPromo();
+    this.getTab();
+    this.getConfig();
   },
   methods: {
-    // 点击搜索按钮
-    searchClick() {
-      if (this.search != "") {
-        // 跳转到全部商品页面,并传递搜索条件
-        this.$router.push({ path: "/goods", query: { search: this.search } });
-        this.search = "";
-      }
+    getConfig() {
+      this.$request.get(this.api.getConfigInfo).then((res) => {
+        this.titleTips = res.data.indexText;
+        var i = 0;
+        for (const key in res.data) {
+          i = i + 1;
+          console.log(key);
+          if (res.data["indexPic" + i]) {
+            this.images.push({
+              imgPath: res.data["indexPic" + i],
+              id: i,
+            });
+          }
+        }
+      });
     },
     // 获取各类商品数据方法封装
     getPromo() {
-      this.$request
-        .post(this.base.getList, { pageNum: 1, pageSize: 1000 })
-        .then((res) => {
-          if (res.resultCode == 20000) {
-            this.list = res.data.rows;
-            //箭头函数用来解决问题Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'catList')
-            // at eval (index.vue?6ced:230)
-            // at Array.forEach (<anonymous>)
-            // at eval (index.vue?6ced:229)，因为他是异步处理的。
-
-            // 根据后台商品种类名字
-            //  this.list.forEach((v) => {
-            //   const check = this.catList.every((j) => {
-            //     if (j.key !== v.goodsType) {
-            //       return true;
-            //     } else {
-            //       return false;
-            //     }
-            //   });
-            //   if (check) {
-            //     this.catList.push({
-            //       key: v.goodsType,
-            //       value: v.typeName,
-            //     });
-            //   }
-            // });
-
-            // 根据前台本地维护商品种类名字
-            this.list.forEach((v) => {
-              GoodsTypeVariable.forEach((k) => {
-                if (v.goodsType == k.goodsType) {
-                  v.typeName = k.typeName;
-                  const check = this.catList.every((j) => {
-                    if (j.key !== k.goodsType) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  });
-                  if (check) {
-                    this.catList.push({
-                      key: k.goodsType,
-                      value: k.typeName,
-                    });
-                  }
-                }
-              });
-            });
-          }
-        });
+      this.$request.post(this.base.getList, this.queryParams).then((res) => {
+        this.list = res.data.rows;
+      });
+    },
+    getTab() {
+      this.tabList = [];
+      this.$request.get(this.base.queryTab).then((res) => {
+        this.tabList = [{ dictCode: "all", dictName: "全部" }];
+        this.tabList.push(...res.data);
+      });
     },
     //切换事件
-    handleClick() {
+    handleClick(e) {
+      if (e.label == "全部") {
+        delete this.queryParams.goodsType;
+      } else {
+        this.queryParams.goodsType = e.name;
+      }
       this.getPromo();
     },
   },
@@ -258,12 +209,19 @@ a:hover {
   float: right;
 }
 /* 顶栏容器CSS END */
-.myList ul {
-  margin-left: 20px;
+.myList {
+  /* display: flex; */
+  /* flex-wrap: wrap;
+  justify-content: space-around; */
 }
-.myList ul li {
+.myList_col{
+  display: flex;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+.goods-card {
   z-index: 1;
-  float: left;
+  /* float: left; */
   width: 400px;
   height: 280px;
   padding: 15px 0;
@@ -273,21 +231,21 @@ a:hover {
   transition: all 0.2s linear;
   position: relative;
 }
-.myList ul li:hover {
+.goods-card:hover {
   z-index: 2;
   -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   -webkit-transform: translate3d(0, -2px, 0);
   transform: translate3d(0, -2px, 0);
 }
-.myList ul li img {
+.goods-card img {
   display: block;
-  width: 380px;
-  height: 200px;
+  width: 210px;
+  /* height: 200px; */
   background: url(../assets/imgs/placeholder.png) no-repeat 50%;
   margin: 0 auto;
 }
-.myList ul li h2 {
+.goods-card h2 {
   margin: 10px 10px 0;
   font-size: 14px;
   font-weight: 400;
@@ -297,7 +255,7 @@ a:hover {
   white-space: nowrap;
   overflow: hidden;
 }
-.myList ul li h3 {
+.goods-card h3 {
   margin: 5px 10px;
   height: 18px;
   font-size: 12px;
@@ -308,12 +266,12 @@ a:hover {
   white-space: nowrap;
   overflow: hidden;
 }
-.myList ul li p {
+.goods-card p {
   margin: 10px 10px 10px;
   text-align: center;
   color: #ff6700;
 }
-.myList ul li p .del {
+.goods-card p .del {
   margin-left: 0.5em;
   color: #b0b0b0;
   text-decoration: line-through;

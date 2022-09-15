@@ -1,7 +1,7 @@
 <!--
  * @Author: 1vv
  * @Date: 2021-10-22 10:32:52
- * @LastEditTime: 2021-12-15 18:41:40
+ * @LastEditTime: 2022-03-09 17:01:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \online-shop\src\views\ConfirmOrder.vue
@@ -111,7 +111,6 @@
 <script>
 import headerPage from "../components/header.vue";
 import addressPage from "../components/address.vue";
-// import { GoodsTypeVariable } from "@/utils/Variable";
 export default {
   name: "",
   data() {
@@ -153,17 +152,6 @@ export default {
             this.checkTrue()
           } else if (res.resultCode == 70000) {
             this.titleQuato = "您兑换的商品数量小于可兑换数量，此次兑换后余额清0，剩余的商品不可进行二次兑换，确认继续兑换吗？"
-            // 原需求提示信息
-            // this.titleQuato = "您可兑换";
-            // GoodsTypeVariable.forEach((k) => {
-            //   Object.keys(res.data).forEach((j) => {
-            //     if (k.key == j && res.data[j] != null && res.data[j] != 0) {
-            //       this.titleQuato += k.typeName + res.data[k.key] + "份，";
-            //     }
-            //   });
-            // });
-            // this.titleQuato +=
-            //   "您此次兑换还有剩余，剩余商品不可进行二次兑换，确认继续兑换吗？";
             this.$confirm(this.titleQuato, {
               confirmButtonText: "继续兑换",
               cancelButtonText: "取消",
@@ -177,8 +165,6 @@ export default {
               })
               .catch(() => {
                 this.$router.push("/shoppingCart");
-                //   // 清除下单数据
-                // localStorage.removeItem("orderData");
               });
           }else{
             this.$message.error(res.message);
@@ -219,12 +205,14 @@ export default {
           localStorage.setItem("shopCar", JSON.stringify(tempShopCar));
           // 清除下单数据
           localStorage.removeItem("orderData");
+           this.paySuccess = false;
         } else {
           this.$message.error(res.message);
+           this.paySuccess = true;
         }
       });
 
-      this.paySuccess = false;
+     
     },
     getDefultAddress() {
       this.$request.get(this.api.getAddress).then((res) => {

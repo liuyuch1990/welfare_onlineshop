@@ -14,4 +14,5 @@ export const APID = {
     editAddress: 'order/edit', //修改订单地址
     cancelOrder: 'order/cancelOrder/', //取消订单
     deleteAddress: '/addr/delete/', //删除地址管理中的地址
+    queryTab: '/com/queryGoodsTypeDropDownList', // 查询公司商品分类
 }

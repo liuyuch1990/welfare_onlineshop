@@ -1,7 +1,7 @@
 <!--
  * @Author: 1vv
  * @Date: 2021-10-22 10:32:52
- * @LastEditTime: 2021-11-23 10:20:48
+ * @LastEditTime: 2022-03-09 15:49:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \online-shop\src\views\ShoppingCart.vue
@@ -124,7 +124,6 @@
 <script>
 import emptyPage from "../components/empty.vue";
 import headerPage from "../components/header.vue";
-import { GoodsTypeVariable } from "@/utils/Variable";
 export default {
   data() {
     return {
@@ -154,17 +153,18 @@ export default {
     } else {
       this.isEmpty = false;
       this.shopCarDataBefore = JSON.parse(localStorage.getItem("shopCar"));
-      this.dataChange();
-      this.checkTypetName();
     }
   },
-  mounted() {},
+  mounted() {
+    this.dataChange();
+  },
   methods: {
     // 数据转换    按分类数据转换 用来循环分类
     dataChange() {
       let map = {};
       for (let i = 0; i < this.shopCarDataBefore.length; i++) {
         let ai = this.shopCarDataBefore[i];
+        console.log( this.shopCarDataBefore[i]);
         if (!map[ai.goodsType]) {
           map[ai.goodsType] = [ai];
         } else {
@@ -172,20 +172,11 @@ export default {
         }
       }
       Object.keys(map).forEach((key) => {
-        // console.log(map);
+        console.log(map,key);
         this.shopCarData.push({
           goodsType: key,
+          typeName:  map[key][0].typeName,
           children: map[key],
-        });
-      });
-    },
-    checkTypetName() {
-      console.log(this.shopCarData);
-      this.shopCarData.forEach((v) => {
-        GoodsTypeVariable.forEach((k) => {
-          if (v.goodsType == k.goodsType) {
-            v.typeName = k.typeName;
-          }
         });
       });
     },

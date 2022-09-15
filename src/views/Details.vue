@@ -1,7 +1,7 @@
 <!--
  * @Author:1vv
  * @Date: 2021-10-22 10:32:52
- * @LastEditTime: 2021-11-20 23:30:16
+ * @LastEditTime: 2022-03-09 14:52:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \online-shop\src\views\Details.vue
@@ -48,7 +48,7 @@
 
         <!-- 右侧内容区 -->
         <div class="content">
-          <span class="pro-name pro-type">{{ typeName }}-</span>
+          <span class="pro-name pro-type">{{ productDetails.typeName }}-</span>
           <span class="pro-name">{{ productDetails.goodsName }}</span>
           <p class="intro">{{ productDetails.goodsContent }}</p>
           <div class="price">
@@ -140,6 +140,7 @@ export default {
         .get(this.api.goodsDetail + "/" + this.goodsID)
         .then((res) => {
           this.productDetails = res.data;
+          this.productDetails.typeName=this.typeName;
         });
     },
     // 加入购物车

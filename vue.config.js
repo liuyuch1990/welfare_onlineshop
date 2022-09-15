@@ -3,7 +3,7 @@
  * @Author: hai-27
  * @Date: 2020-02-07 16:23:00
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 10:14:53
+ * @LastEditTime: 2022-03-31 14:59:58
  */
 module.exports = {
     publicPath: './',
@@ -11,7 +11,7 @@ module.exports = {
     outputDir: process.env.VUE_APP_FILE_Name, // 打包文件名
     devServer: {
         open: false,
-        // host: '192.168.1.104',
+        // host: '192.168.1.111',
         host: 'localhost',
         port: 8001,
         proxy: {

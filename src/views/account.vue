@@ -1,7 +1,7 @@
 <!--
  * @Author: 1vv
  * @Date: 2021-10-25 10:00:18
- * @LastEditTime: 2021-12-21 10:13:53
+ * @LastEditTime: 2022-03-09 16:12:20
  * @LastEditors: Please set LastEditors
  * @Description: 充值页面
  * @FilePath: \online-shop\src\views\account.vue
@@ -27,11 +27,11 @@
           </el-form-item>
           <el-form-item label="账户余额：">
             <span v-if="!Haswallet">0</span>
-            <span v-else v-for="item in walletList"
-              :key="item.id"
-              class="account-ruleForm-wallet"><span v-html="form.wallet">{{ form.wallet }}</span>
-              </span>
-           
+            <span
+              v-else
+              class="account-ruleForm-wallet"
+              ><span v-html="form.wallet">{{ form.wallet }}</span>
+            </span>
           </el-form-item>
           <!--切换充值隐藏信息 -->
           <div v-if="!showPayInput">
@@ -42,7 +42,7 @@
               请输入礼品卡编号进行充值
             </p>
             <el-button
-              v-if="!showPayInput&&!Haswallet"
+              v-if="!showPayInput && !Haswallet"
               class="submit-btn"
               type="primary"
               @click="showPay"
@@ -74,7 +74,7 @@
 <script>
 import emptyPage from "../components/empty.vue";
 import headerPage from "../components/header.vue";
-import { GoodsTypeVariable } from "@/utils/Variable";
+// import { GoodsTypeVariable } from "@/utils/Variable";
 export default {
   data() {
     // 手机号校验方法
@@ -134,7 +134,7 @@ export default {
     },
     getWallet() {
       this.$request.get(this.api.getWallet).then((res) => {
-        this.walletList = res.data;
+        this.walletList = res.data.typeQuotaVoList;
         if (this.walletList.length <= 0) {
           this.Haswallet = false;
         } else {
@@ -142,40 +142,14 @@ export default {
         }
         this.form.wallet = "";
         var walletTips = "";
-        res.data.forEach((v) => {
-          GoodsTypeVariable.forEach((k) => {
-            Object.keys(v).forEach((j) => {
-              if (k.key == j && v[j] != null) {
-                console.log(k.typeName);
-                walletTips += k.typeName + "：" + v[k.key] + "件；</br>";
-              }
-            });
-          });
-          this.form.wallet = `<span style='font-size:16px'>${v.giftCardName}，有效期至${v.validDate}<p>
-          <span style="font-size:18px">说明，您的每份礼品卡可以从以下礼品中选择任意一类进行兑换：<span>
+        res.data.typeQuotaVoList.forEach((v) => {
+          walletTips += v.goodsTypeName + "：" + v.typeQuota + "件；</br>";
+        });
+        this.form.wallet = `<span style='font-size:16px'>${res.data.cardTypeName}，有效期至${res.data.validDate}<p>
+          <span style="font-size:18px">说明，您的每份礼品卡可以从以下礼品中选择进行兑换：<span>
           </br>
           ${walletTips}
           </p></span>`;
-          // this.form.wallet =
-          //   v.giftCardName +
-          //   "，份数:" +
-          //   v.quotaMultiple +
-          //   "，有效期至" +
-          //   v.validDate;
-          // });
-          // 原可多选需求
-          //  this.form.wallet = v.giftCardName
-          // GoodsTypeVariable.forEach((k) => {
-          //   Object.keys(v).forEach((j) => {
-          //     if (k.key == j && v[j] != null) {
-          //       console.log(this.form.wallet);
-          //       this.form.wallet += k.typeName + v[k.key] + "份，";
-          //     }
-          //   });
-          // });
-          // this.form.wallet += "有效期至：" + v.validDate;
-        });
-        // console.log(this.walletList);
       });
     },
     submit() {
