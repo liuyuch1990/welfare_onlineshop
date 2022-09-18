@@ -53,7 +53,12 @@
               <template slot-scope="scope">
                 <span v-if="scope.row.status == 0">未发货</span>
                 <span v-else-if="scope.row.status == 1">已发货</span>
-                <span v-else>已取消</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -106,6 +111,12 @@
                   <el-button type="text" @click="handleViewLogistic(scope.row)"
                     >查看物流</el-button
                   >
+                  <el-button type="text" @click="handleRollOrder(scope.row)"
+                  >申请退/换货</el-button
+                  >
+                  <el-button type="text" @click="addComment(scope.row)"
+                  >评价</el-button
+                  >
                 </p>
                 <p v-else>--</p>
               </template>
@@ -147,7 +158,12 @@
               <template slot-scope="scope">
                 <span v-if="scope.row.status == 0">未发货</span>
                 <span v-else-if="scope.row.status == 1">已发货</span>
-                <span v-else>已取消</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -248,7 +264,12 @@
               <template slot-scope="scope">
                 <span v-if="scope.row.status == 0">未发货</span>
                 <span v-else-if="scope.row.status == 1">已发货</span>
-                <span v-else>已取消</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
               </template>
             </el-table-column>
             <el-table-column label="收货信息" min-width="120px">
@@ -294,6 +315,12 @@
                   <el-button type="text" @click="handleViewLogistic(scope.row)"
                     >查看物流</el-button
                   >
+                  <el-button type="text" @click="handleRollOrder(scope.row)"
+                  >申请退/换货</el-button
+                  >
+                  <el-button type="text" @click="addComment(scope.row)"
+                  >评价</el-button
+                  >
                 </p>
                 <p v-else>--</p>
               </template>
@@ -335,7 +362,12 @@
               <template slot-scope="scope">
                 <span v-if="scope.row.status == 0">未发货</span>
                 <span v-else-if="scope.row.status == 1">已发货</span>
-                <span v-else>已取消</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -394,6 +426,407 @@
             </el-table-column>
           </el-table>
         </el-tab-pane>
+
+        <el-tab-pane label="待退货" name="fifth">
+          <el-table :data="ordersFifth">
+            <el-table-column
+                    label="商品"
+                    align="center"
+                    min-width="250px"
+                    :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">
+                <div
+                        v-for="(item, index) in scope.row.orderGoods"
+                        :key="index"
+                        class="orderprovos"
+                >
+                  <div class="orderprovos-img">
+                    <img :src="$target + item.picSavepath" alt="" />
+                  </div>
+                  <div class="orderprovos-font">
+                    <p class="multi-ellipsis--l1">
+                      商品名称：{{ item.goodsName }}
+                    </p>
+                    <p>单价:--</p>
+                  </div>
+                  <div>
+                    <p>数量：{{ item.goodsNum }}</p>
+                  </div>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="orderTime" label="下单时间" align="center">
+            </el-table-column>
+            <el-table-column prop="status" label="订单状态" align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.status == 0">未发货</span>
+                <span v-else-if="scope.row.status == 1">已发货</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+                    prop="orderNumber"
+                    label="订单编号"
+                    align="center"
+                    min-width="100px"
+            >
+            </el-table-column>
+            <el-table-column label="收货信息" min-width="120px">
+              <template slot-scope="scope">
+                <p>收货人:{{ scope.row.orderName }}</p>
+                <p>手机号:{{ scope.row.orderTel }}</p>
+                <p>收货地址:{{ scope.row.orderAddress }}</p>
+              </template>
+            </el-table-column>
+
+            <el-table-column label="查看物流" align="center" min-width="100px">
+              <template slot-scope="scope">
+                <ul v-if="scope.row.status == 1">
+                  <li v-for="item in scope.row.express" :key="item.id">
+                    <p style="color: #ff6700">{{ item.logisticsCompany }}</p>
+                    <p>
+                      <el-button
+                              type="text"
+                              @click="handleView(item)"
+                              v-if="scope.row.status == 1"
+                      >{{ item.courierNumber }}</el-button
+                      >
+                    </p>
+                  </li>
+                </ul>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center" min-width="150px">
+              <template slot-scope="scope">
+                <p v-if="scope.row.status == 0">
+                  <el-popconfirm
+                          :title="'确定要取消该订单吗？'"
+                          @confirm="handleCancel(scope, 'fourth')"
+                  >
+                    <el-button slot="reference" type="text"
+                    >取消订单|</el-button
+                    >
+                  </el-popconfirm>
+                  <el-button
+                          type="text"
+                          @click="handleEdit(scope)"
+                          style="margin-left: 0"
+                  >修改地址</el-button
+                  >
+                </p>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+
+        <el-tab-pane label="待换货" name="six">
+          <el-table :data="ordersSix">
+            <el-table-column
+                    label="商品"
+                    align="center"
+                    min-width="250px"
+                    :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">
+                <div
+                        v-for="(item, index) in scope.row.orderGoods"
+                        :key="index"
+                        class="orderprovos"
+                >
+                  <div class="orderprovos-img">
+                    <img :src="$target + item.picSavepath" alt="" />
+                  </div>
+                  <div class="orderprovos-font">
+                    <p class="multi-ellipsis--l1">
+                      商品名称：{{ item.goodsName }}
+                    </p>
+                    <p>单价:--</p>
+                  </div>
+                  <div>
+                    <p>数量：{{ item.goodsNum }}</p>
+                  </div>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="orderTime" label="下单时间" align="center">
+            </el-table-column>
+            <el-table-column prop="status" label="订单状态" align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.status == 0">未发货</span>
+                <span v-else-if="scope.row.status == 1">已发货</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+                    prop="orderNumber"
+                    label="订单编号"
+                    align="center"
+                    min-width="100px"
+            >
+            </el-table-column>
+            <el-table-column label="收货信息" min-width="120px">
+              <template slot-scope="scope">
+                <p>收货人:{{ scope.row.orderName }}</p>
+                <p>手机号:{{ scope.row.orderTel }}</p>
+                <p>收货地址:{{ scope.row.orderAddress }}</p>
+              </template>
+            </el-table-column>
+
+            <el-table-column label="查看物流" align="center" min-width="100px">
+              <template slot-scope="scope">
+                <ul v-if="scope.row.status == 1">
+                  <li v-for="item in scope.row.express" :key="item.id">
+                    <p style="color: #ff6700">{{ item.logisticsCompany }}</p>
+                    <p>
+                      <el-button
+                              type="text"
+                              @click="handleView(item)"
+                              v-if="scope.row.status == 1"
+                      >{{ item.courierNumber }}</el-button
+                      >
+                    </p>
+                  </li>
+                </ul>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center" min-width="150px">
+              <template slot-scope="scope">
+                <p v-if="scope.row.status == 0">
+                  <el-popconfirm
+                          :title="'确定要取消该订单吗？'"
+                          @confirm="handleCancel(scope, 'fourth')"
+                  >
+                    <el-button slot="reference" type="text"
+                    >取消订单|</el-button
+                    >
+                  </el-popconfirm>
+                  <el-button
+                          type="text"
+                          @click="handleEdit(scope)"
+                          style="margin-left: 0"
+                  >修改地址</el-button
+                  >
+                </p>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+
+        <el-tab-pane label="已退货" name="seven">
+          <el-table :data="ordersSeven">
+            <el-table-column
+                    label="商品"
+                    align="center"
+                    min-width="250px"
+                    :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">
+                <div
+                        v-for="(item, index) in scope.row.orderGoods"
+                        :key="index"
+                        class="orderprovos"
+                >
+                  <div class="orderprovos-img">
+                    <img :src="$target + item.picSavepath" alt="" />
+                  </div>
+                  <div class="orderprovos-font">
+                    <p class="multi-ellipsis--l1">
+                      商品名称：{{ item.goodsName }}
+                    </p>
+                    <p>单价:--</p>
+                  </div>
+                  <div>
+                    <p>数量：{{ item.goodsNum }}</p>
+                  </div>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="orderTime" label="下单时间" align="center">
+            </el-table-column>
+            <el-table-column prop="status" label="订单状态" align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.status == 0">未发货</span>
+                <span v-else-if="scope.row.status == 1">已发货</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+                    prop="orderNumber"
+                    label="订单编号"
+                    align="center"
+                    min-width="100px"
+            >
+            </el-table-column>
+            <el-table-column label="收货信息" min-width="120px">
+              <template slot-scope="scope">
+                <p>收货人:{{ scope.row.orderName }}</p>
+                <p>手机号:{{ scope.row.orderTel }}</p>
+                <p>收货地址:{{ scope.row.orderAddress }}</p>
+              </template>
+            </el-table-column>
+
+            <el-table-column label="查看物流" align="center" min-width="100px">
+              <template slot-scope="scope">
+                <ul v-if="scope.row.status == 1">
+                  <li v-for="item in scope.row.express" :key="item.id">
+                    <p style="color: #ff6700">{{ item.logisticsCompany }}</p>
+                    <p>
+                      <el-button
+                              type="text"
+                              @click="handleView(item)"
+                              v-if="scope.row.status == 1"
+                      >{{ item.courierNumber }}</el-button
+                      >
+                    </p>
+                  </li>
+                </ul>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center" min-width="150px">
+              <template slot-scope="scope">
+                <p v-if="scope.row.status == 0">
+                  <el-popconfirm
+                          :title="'确定要取消该订单吗？'"
+                          @confirm="handleCancel(scope, 'fourth')"
+                  >
+                    <el-button slot="reference" type="text"
+                    >取消订单|</el-button
+                    >
+                  </el-popconfirm>
+                  <el-button
+                          type="text"
+                          @click="handleEdit(scope)"
+                          style="margin-left: 0"
+                  >修改地址</el-button
+                  >
+                </p>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+
+        <el-tab-pane label="已换货" name="eight">
+          <el-table :data="ordersEight">
+            <el-table-column
+                    label="商品"
+                    align="center"
+                    min-width="250px"
+                    :show-overflow-tooltip="true"
+            >
+              <template slot-scope="scope">
+                <div
+                        v-for="(item, index) in scope.row.orderGoods"
+                        :key="index"
+                        class="orderprovos"
+                >
+                  <div class="orderprovos-img">
+                    <img :src="$target + item.picSavepath" alt="" />
+                  </div>
+                  <div class="orderprovos-font">
+                    <p class="multi-ellipsis--l1">
+                      商品名称：{{ item.goodsName }}
+                    </p>
+                    <p>单价:--</p>
+                  </div>
+                  <div>
+                    <p>数量：{{ item.goodsNum }}</p>
+                  </div>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="orderTime" label="下单时间" align="center">
+            </el-table-column>
+            <el-table-column prop="status" label="订单状态" align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.row.status == 0">未发货</span>
+                <span v-else-if="scope.row.status == 1">已发货</span>
+                <span v-else-if="scope.row.status == 2">已取消</span>
+                <span v-else-if="scope.row.status == 3">待退货</span>
+                <span v-else-if="scope.row.status == 4">待换货</span>
+                <span v-else-if="scope.row.status == 5">已退货</span>
+                <span v-else-if="scope.row.status == 6">已换货</span>
+                <span v-else>特殊</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+                    prop="orderNumber"
+                    label="订单编号"
+                    align="center"
+                    min-width="100px"
+            >
+            </el-table-column>
+            <el-table-column label="收货信息" min-width="120px">
+              <template slot-scope="scope">
+                <p>收货人:{{ scope.row.orderName }}</p>
+                <p>手机号:{{ scope.row.orderTel }}</p>
+                <p>收货地址:{{ scope.row.orderAddress }}</p>
+              </template>
+            </el-table-column>
+
+            <el-table-column label="查看物流" align="center" min-width="100px">
+              <template slot-scope="scope">
+                <ul v-if="scope.row.status == 1">
+                  <li v-for="item in scope.row.express" :key="item.id">
+                    <p style="color: #ff6700">{{ item.logisticsCompany }}</p>
+                    <p>
+                      <el-button
+                              type="text"
+                              @click="handleView(item)"
+                              v-if="scope.row.status == 1"
+                      >{{ item.courierNumber }}</el-button
+                      >
+                    </p>
+                  </li>
+                </ul>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center" min-width="150px">
+              <template slot-scope="scope">
+                <p v-if="scope.row.status == 0">
+                  <el-popconfirm
+                          :title="'确定要取消该订单吗？'"
+                          @confirm="handleCancel(scope, 'fourth')"
+                  >
+                    <el-button slot="reference" type="text"
+                    >取消订单|</el-button
+                    >
+                  </el-popconfirm>
+                  <el-button
+                          type="text"
+                          @click="handleEdit(scope)"
+                          style="margin-left: 0"
+                  >修改地址</el-button
+                  >
+                </p>
+                <p v-else>--</p>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+
       </el-tabs>
     </div>
     <!-- 我的订单主要内容END -->
@@ -415,6 +848,8 @@
         </el-timeline>
       </div>
     </el-dialog>
+
+
     <!-- 查看物流的弹框END -->
     <!-- 修改地址的弹窗 -->
     <el-dialog
@@ -471,6 +906,104 @@
         </el-timeline>
       </div>
     </el-dialog>
+    <el-dialog
+            title="退换货"
+            :visible.sync="dialogVisible"
+            width="50%"
+            @close="handleClose"
+            append-to-body
+    >
+
+      <el-form
+              ref="rollBackRef"
+              :model="rollForm"
+              :rules="rollOrderRules"
+              label-position="left"
+              label-width="100px"
+      >
+        <el-form-item label="退换货原因" prop="rollReason">
+          <el-input
+                  maxlength="300"
+                  type = "textarea"
+                  v-model="rollForm.rollReason"
+                  placeholder="退换货原因"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="类型" prop="status">
+          <el-select
+                  v-model="rollForm.status"
+                  placeholder="请选择类型"
+                  @change="handleStatus"
+          >
+            <el-option
+                    v-for="item in status"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="预约换货时间" prop="appointment">
+          <el-date-picker
+                  v-model="rollForm.appointment"
+                  type="datetime"
+                  placeholder="选择日期时间"
+                  default-time="12:00:00">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="退换货图片">
+          <el-upload
+                  action="aaaa"
+                  list-type="picture-card"
+                  :on-preview="handlePictureCardPreview"
+                  :http-request="uploadRollPics"
+                  :file-list="fileList"
+                  :on-remove="handleRemove" :limit= "limit">
+            <i class="el-icon-plus"></i>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleClose()">取 消</el-button>
+        <el-button type="primary" @click="handleConfirm">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog
+            title="评价"
+            :visible.sync="dialogCommentVisible"
+            width="50%"
+            @close="handleClose"
+            append-to-body
+    >
+      <el-form
+              ref="commentRef"
+              :model="commentForm"
+              :rules="commentRules"
+              label-position="left"
+              label-width="100px"
+      >
+        <el-form-item label="商品评价" prop="comment">
+          <el-input
+                  maxlength="300"
+                  type = "textarea"
+                  v-model="commentForm.comment"
+                  placeholder="商品评价"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="评分"  >
+          <el-rate
+                  v-model="commentForm.stars"
+                  >
+          </el-rate>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleCommentClose()">取 消</el-button>
+        <el-button type="primary" @click="handleCommentConfirm()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -482,23 +1015,68 @@ export default {
     return {
       headerTitle: "我的订单",
       emptyTitle: "订单",
+      limit: 1,
+      fileList: [],
+      dialogVisible: false,
+      dialogCommentVisible: false,
       orders: [], // 刚开始渲染页面获得的订单列表
       total: [], // 每个订单的商品数量及总价列表
       activeName: "first", //刚开始显示的第几个tab标签
       isOrder: true, //是否显示订单页面
+      status: [
+        {
+          value: "3",
+          label: "退货",
+          id: 1,
+        },
+        {
+          value: "4",
+          label: "换货",
+          id: 2,
+        },
+      ],
       //getSpanArr方法中要用到的方法
       spanArr: [],
       pos: 0,
+      rollOrderRules: {
+        rollReason: [{ required: true, message: "请输入退/换货原因", trigger: "blur" }],
+        status: [{ required: true, message: "请输入退/换货类型", trigger: "blur" }],
+        appointment: [{ required: true, message: "请输入预约退换时间", trigger: "blur" }],
+      },
+      commentRules: {
+        comment: [{ required: true, message: "请输入评价", trigger: "blur" }],
+        // stars: [{ required: true, message: "请评分", trigger: "blur" }]
+      },
+      rollForm: {
+        orderId: "",
+        status: "",
+        rollReason: '',
+        rollPics: '',
+        appointment: ""
+      }, //编辑或者新增的表单
+      commentForm: {
+        orderId: "",
+        comment: "",
+        stars: ""
+      }, //编辑或者新增的表单
       //未发货
       ordersSecond: [], //未发货的list
       ordersThird: [], //已发货的list
       ordersFour: [], //已取消的List
+      ordersFifth: [], //已取消的List
+      ordersSix: [], //已取消的List
+      ordersSeven: [], //已取消的List
+      ordersEight: [], //已取消的List
+
       ordersList: [], //转换中的list
       ordersTrueList: [], //转换完成后的list
       logisitic_List: [],
       stringlist: {},
+      logisticsInformation: [],
       dialogVisibleView: false, //查看物流的Dialog
       dialogVisibleAddress: false, //添加地址的Dialog
+      dialogImageUrl: '',
+      uploadDialogVisible: false,
       query: {
         pageNum: 1,
         pageSize: 20,
@@ -525,6 +1103,96 @@ export default {
       this.dialogVisiblelogisticsMany = true;
       this.logisticsInformation = e.express;
       this.activities = []; //查看物流前，将物流信息置为空
+    },
+    handleClose() {
+      this.rollForm.rollPics = ""
+      this.rollForm.appointment  = ''
+      this.rollForm.rollReason = ''
+      this.dialogVisible = false
+      this.$refs["rollBackRef"].resetFields();
+      this.fileList = []
+    },
+    handleCommentClose() {
+      this.commentForm.comment = ""
+      this.commentForm.stars  = ''
+      this.dialogCommentVisible = false
+      this.$refs["commentRef"].resetFields();
+    },
+    handleConfirm() {
+      this.$refs.rollBackRef.validate((valid) => {
+        if (valid) {
+          this.$request
+                  .post(this.base.addCommentOrReturnReason, this.rollForm)
+                  .then((res) => {
+                    console.log(res);
+                    if (res.resultCode == "20000") {
+                      this.$message.success("操作成功！");
+                      this.dialogVisible = false;
+                      this.getList();
+                      this.$refs.rollBackRef.resetFields();
+                    } else {
+                      this.$message.error("操作失败，请稍后重试！");
+                    }
+                  });
+        } else {
+          return false;
+        }
+      });
+    },
+    handleCommentConfirm() {
+      this.$refs.commentRef.validate((valid) => {
+        if (valid) {
+          this.$request
+                  .post(this.base.addCommentOrReturnReason, this.commentForm)
+                  .then((res) => {
+                    console.log(res);
+                    if (res.resultCode == "20000") {
+                      this.$message.success("操作成功！");
+                      this.dialogVisible = false;
+                      this.getList();
+                      this.$refs.rollBackRef.resetFields();
+                    } else {
+                      this.$message.error("操作失败，请稍后重试！");
+                    }
+                  });
+        } else {
+          return false;
+        }
+      });
+    },
+    uploadRollPics(param) {
+      var formData = new FormData();
+      formData.append("file", param.file);
+      this.$request.post(this.base.uploadPics, formData).then((res) => {
+        this.rollForm.rollPics = res.data
+      });
+    },
+    addComment(e) {
+      this.commentForm.orderId = e.orderId
+      this.commentForm.comment = e.comment
+      this.commentForm.stars = e.stars
+      this.dialogCommentVisible = true;
+      this.logisticsInformation = e.express;
+      this.activities = []; //查看物流前，将物流信息置为空
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handleRollUploadSuccess(res) {
+      this.rollForm.rollPics = res.data
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    handleRollOrder(e) {
+      this.dialogVisible = true;
+      this.rollForm.orderId = e.orderId
+      this.logisticsInformation = e.express;
+      this.activities = []; //查看物流前，将物流信息置为空
+    },
+    handleStatus(value) {
+      this.rollForm.status = value
     },
     //获取选择的新地址
     getNewAddress(val) {
@@ -557,7 +1225,7 @@ export default {
       }else{
         this.$message.error("请选择地址")
       }
-    
+
     },
     //取消修改地址
     cancelNewAddress() {
@@ -573,6 +1241,14 @@ export default {
         this.getAlOrders();
       } else if (tab.name == "fourth") {
         this.getCancelOrders();
+      }else if (tab.name == "fifth") {
+        this.getRollBackOrders();
+      } else if (tab.name == "six") {
+        this.getSwitchOrders();
+      } else if (tab.name == "seven") {
+        this.getRollBackedOrders();
+      } else if (tab.name == "eight") {
+        this.getSwitchedOrders();
       }
     },
     //合并表格
@@ -649,6 +1325,14 @@ export default {
               this.getAlOrders();
             } else if (tab == "fourth") {
               this.getCancelOrders();
+            } else if (tab == "fifth") {
+              this.getRollBackOrders();
+            } else if (tab == "six") {
+              this.getSwitchOrders();
+            } else if (tab == "seven") {
+              this.getRollBackedOrders();
+            } else if (tab == "eight") {
+              this.getSwitchedOrders();
             }
           } else {
             this.$message.error("操作失败，请稍后再试");
@@ -726,7 +1410,7 @@ export default {
               .post(this.base.getOrderList, {pageNum:1,pageSize:20,status:3})
               .then((res) => {
                   if (res.resultCode == 20000) {
-                      this.ordersFour = res.data;
+                      this.ordersFifth = res.data;
                   } else {
                       this.$message.error("请求超时！");
                   }
@@ -736,13 +1420,29 @@ export default {
               });
       },
 
+    //获得已取消的商品数据
+    getRollBackedOrders(){
+      this.$request
+              .post(this.base.getOrderList, {pageNum:1,pageSize:20,status:5})
+              .then((res) => {
+                if (res.resultCode == 20000) {
+                  this.ordersSeven = res.data;
+                } else {
+                  this.$message.error("请求超时！");
+                }
+              })
+              .catch((err) => {
+                return Promise.reject(err);
+              });
+    },
+
       //获得已取消的商品数据
       getSwitchOrders (){
           this.$request
               .post(this.base.getOrderList, {pageNum:1,pageSize:20,status:4})
               .then((res) => {
                   if (res.resultCode == 20000) {
-                      this.ordersFour = res.data;
+                      this.ordersSix = res.data;
                   } else {
                       this.$message.error("请求超时！");
                   }
@@ -750,7 +1450,22 @@ export default {
               .catch((err) => {
                   return Promise.reject(err);
               });
-      }
+      },
+    //获得已取消的商品数据
+    getSwitchedOrders (){
+      this.$request
+              .post(this.base.getOrderList, {pageNum:1,pageSize:20,status:6})
+              .then((res) => {
+                if (res.resultCode == 20000) {
+                  this.ordersEight = res.data;
+                } else {
+                  this.$message.error("请求超时！");
+                }
+              })
+              .catch((err) => {
+                return Promise.reject(err);
+              });
+    }
   },
   created() {
     this.getOrders();

@@ -141,6 +141,8 @@ export default {
         orderName: this.addressInfo.receiverName,
         orderTel: this.addressInfo.receiverPhone,
         orderAddress: this.addressInfo.address,
+        userNo: this.addressInfo.userNo,
+        userName: this.addressInfo.userName,
         orderGoodsJson: this.tableData,
       };
 

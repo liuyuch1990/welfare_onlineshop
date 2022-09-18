@@ -101,6 +101,18 @@
             placeholder="请输入收货人名称"
           ></el-input>
         </el-form-item>
+        <el-form-item label="员工号" prop="userNo">
+          <el-input
+                  v-model="addressForm.userNo"
+                  placeholder="请输入员工号"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="员工姓名" prop="userName">
+          <el-input
+                  v-model="addressForm.userName"
+                  placeholder="请输入员工姓名"
+          ></el-input>
+        </el-form-item>
         <el-form-item label="手机号" prop="receiverPhone">
           <el-input
             v-model="addressForm.receiverPhone"
@@ -204,6 +216,8 @@ export default {
       addressForm: {
         addrName: "",
         receiverName: "",
+        userNo: '',
+        userName: '',
         receiverPhone: "",
         isDef: false,
         addrContent: "",
@@ -239,6 +253,8 @@ export default {
       //表单手机号的验证
       addressRules: {
         addrName: [{ required: true, message: "请输入备注", trigger: "blur" }],
+        userName: [{ required: true, message: "请输入备注", trigger: "blur" }],
+        userNo: [{ required: true, message: "请输入备注", trigger: "blur" }],
         receiverPhone: [
           {  required:true, validator: validateUserPhone, trigger: "blur" }
         ],
@@ -452,6 +468,8 @@ export default {
         this.addressFormTrue.provinceCode = this.addressForm.provinceCode;
         this.addressFormTrue.cityCode = this.addressForm.cityCode;
         this.addressFormTrue.areaCode = this.addressForm.areaCode;
+        this.addressFormTrue.userName = this.addressForm.userName;
+        this.addressFormTrue.userNo = this.addressForm.userNo;
         if (this.addressForm.isDef == false || this.addressForm.isDef == null) {
           this.addressFormTrue.isDef = 0;
         } else {

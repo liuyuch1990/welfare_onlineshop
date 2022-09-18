@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2c136193-492b-4541-a9e4-c70e91c93928" name="Default Changelist" comment="2022/9/13">
+    <list default="true" id="2c136193-492b-4541-a9e4-c70e91c93928" name="Default Changelist" comment="2022/9/15 merge code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/1vv.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/1vv.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/base.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/address.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/address.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/ConfirmOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ConfirmOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Details.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Details.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Order.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Order.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ShoppingCart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ShoppingCart.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/account.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/account.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +79,11 @@
       <workItem from="1663062181286" duration="4697000" />
       <workItem from="1663081077131" duration="502000" />
       <workItem from="1663151052933" duration="39000" />
-      <workItem from="1663253276810" duration="1118000" />
+      <workItem from="1663253276810" duration="1295000" />
+      <workItem from="1663502056206" duration="11869000" />
+      <workItem from="1663514045459" duration="490000" />
+      <workItem from="1663521217203" duration="1635000" />
+      <workItem from="1663528548416" duration="120000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <created>1662991307528</created>
@@ -103,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663081126412</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="2022/9/15 merge code">
+      <created>1663254557566</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663254557566</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,17 +128,18 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init project" />
     <MESSAGE value="2022/9/13" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022/9/13" />
+    <MESSAGE value="2022/9/15 merge code" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022/9/15 merge code" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="812" y="293" key="CommitChangelistDialog2" timestamp="1663253357315">
+    <state x="812" y="293" key="CommitChangelistDialog2" timestamp="1663514528564">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="812" y="293" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1663253357315" />
-    <state x="92" y="92" width="2376" height="1216" key="DiffContextDialog" timestamp="1663254318696">
+    <state x="812" y="293" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1663514528564" />
+    <state x="92" y="92" width="2376" height="1216" key="DiffContextDialog" timestamp="1663514527528">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="92" y="92" width="2376" height="1216" key="DiffContextDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1663254318696" />
+    <state x="92" y="92" width="2376" height="1216" key="DiffContextDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1663514527528" />
     <state width="2539" height="401" key="GridCell.Tab.0.bottom" timestamp="1661561579216">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -152,29 +156,33 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="2539" height="401" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1661561579216" />
-    <state x="965" y="410" key="RollbackChangesDialog" timestamp="1663253475386">
+    <state x="965" y="410" key="RollbackChangesDialog" timestamp="1663514497128">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="965" y="410" key="RollbackChangesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1663253475386" />
+    <state x="965" y="410" key="RollbackChangesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1663514497128" />
     <state x="781" y="342" key="SettingsEditor" timestamp="1662993089327">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="781" y="342" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1662993089327" />
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1663081373377">
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1663254566198">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1663081373377" />
-    <state x="956" y="438" width="647" height="524" key="find.popup" timestamp="1663077561606">
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1663254566198" />
+    <state x="92" y="92" width="2376" height="1216" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1663503205321">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="956" y="438" width="647" height="524" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1663077561606" />
+    <state x="92" y="92" width="2376" height="1216" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1663503205321" />
+    <state x="956" y="438" width="647" height="524" key="find.popup" timestamp="1663528615213">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="956" y="438" width="647" height="524" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1663528615213" />
     <state x="951" y="491" key="git4idea.merge.GitPullDialog" timestamp="1663151061025">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="951" y="491" key="git4idea.merge.GitPullDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1663151061025" />
-    <state x="936" y="353" width="672" height="676" key="search.everywhere.popup" timestamp="1663077566645">
+    <state x="936" y="353" width="672" height="676" key="search.everywhere.popup" timestamp="1663521219802">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="936" y="353" width="672" height="676" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1663077566645" />
+    <state x="936" y="353" width="672" height="676" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1663521219802" />
   </component>
 </project>

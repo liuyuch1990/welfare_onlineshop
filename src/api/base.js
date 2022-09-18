@@ -2,6 +2,8 @@ export const APID = {
     getList: '/goods/list', //查询商品的列表
     getOrderList: '/order/get/getOrder', //查询用户订单
     getOrderLogistic: 'order/queryLogistics', //查看物流信息的接口
+    uploadPics: 'order/upload', //查看物流信息的接口
+    addCommentOrReturnReason: 'order/addCommentOrReturnReason', //查看物流信息的接口
     getAddressList: 'addr/queryList', //获取用户地址的接口
     getProvince: 'addr/province', //请求省
     getCity: 'addr/city/', //请求市
