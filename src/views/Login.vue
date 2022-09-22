@@ -62,16 +62,16 @@
                   v-model="LoginUser.giftCardNum"
                 ></el-input>
               </el-form-item>
-              <el-form-item prop="giftCardNum">
-                <el-select v-model="LoginUser.userDept" placeholder="请选择体系">
-                  <el-option
-                          v-for="item in deptList"
-                          :key="item.id"
-                          :label="item.departmentName"
-                          :value="item.departmentName">
-                  </el-option>
-                </el-select>
-              </el-form-item>
+<!--              <el-form-item prop="giftCardNum">-->
+<!--                <el-select v-model="LoginUser.userDept" placeholder="请选择体系">-->
+<!--                  <el-option-->
+<!--                          v-for="item in deptList"-->
+<!--                          :key="item.id"-->
+<!--                          :label="item.departmentName"-->
+<!--                          :value="item.departmentName">-->
+<!--                  </el-option>-->
+<!--                </el-select>-->
+<!--              </el-form-item>-->
               <!-- <p class="text-right">
                 <router-link to="./register">
                   <span class="go-login-btn">暂无账号，去注册</span>
